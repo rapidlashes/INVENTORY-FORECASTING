@@ -15,31 +15,35 @@ Synthetic/simulated data —  Generated realistic daily sales for ~20-50 SKUs ov
 The dataset had 2 tables, **sales table** and **products table**, both messy and up for cleaning.
 Loaded the data in my postgressql database, did the cleaning which includes removing duplicates and filling missing values in the **sales table**  , column `unit_price` with data from the **products table**.
 
+
 ### Products table ##
-product_id	      -        TEXT (Primary Key),     -            SKU identifier, e.g. SKU001
 
-product_name,	            TEXT,	                      Display name
+`product_id`,	             TEXT (Primary Key),         SKU identifier, e.g. SKU001
 
-category,	                TEXT,	                      One of: Beverages, Snacks, Dairy, Household, Produce
+`product_name`,	            TEXT,	                      Display name
 
-unit_cost,	               NUMERIC,	                 Cost to the business per unit
+`category`,	                TEXT,	                      One of: Beverages, Snacks, Dairy, Household, Produce
 
-unit_price,	              NUMERIC,	                   Retail selling price per unit
+`unit_cost`,	               NUMERIC,	                  Cost to the business per unit
 
-lead_time_days,	          INTEGER,	                   Supplier lead time used for reorder point calc
+`unit_price`,	              NUMERIC,	                  Retail selling price per unit
 
-safety_stock_days,	        INTEGER,	                 Buffer days of stock cover kept on top of lead time
+`lead_time_days`,	          INTEGER,	                   Supplier lead time used for reorder point calc
 
-Cleaned Sales table named as `sales_transactions_production`
-**Column**	              **Type**	                  **Description**
-product_id	             TEXT (FK)                   	SKU sold
-category	               TEXT	                        Denormalised for convenience (matches clean.products.category)
-units_sold	             INTEGER	                    Actual units sold that day (capped by available stock)
-unit_price	             NUMERIC	                    Price on that day
-promotion_flag	         BOOLEAN	                    `True` if the SKU was on promotion that day, `False` if otherwise
-stock_level_end_of_day	 NUMERIC	                    Stock remaining after that day's sales
-stockout_flag	           BOOLEAN	                    `True` if demand exceeded available stock (units_sold < true demand)
-date                     Date                         Calender date
+`safety_stock_days`,	        INTEGER,	                 Buffer days of stock cover kept on top of lead time
+
+
+
+### Sales Table ###
+
+`product_id`,	             TEXT (Foreign Key),              
+`category`,	               TEXT,	                        Denormalised for convenience (matches clean.products.category)
+`units_sold`,	             INTEGER,	                    Actual units sold that day (capped by available stock)
+`unit_price`,	             NUMERIC,	                    Price on that day
+`promotion_flag`,	         BOOLEAN,	                    `True` if the SKU was on promotion that day, `False` if otherwise
+`stock_level_end_of_day`,	  NUMERIC,	                    Stock remaining after that day's sales
+`stockout_flag`,	           BOOLEAN,	                    `True` if demand exceeded available stock 
+`date` ,                    Date,                         Calender date
 
 **Change log**
 1. 91 duplicates removed from the `sales_transactions_production` table, after standardising `category` column casing (5        categories had mixed-case variants)
