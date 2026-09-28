@@ -20,19 +20,19 @@ Cleaned product table named as `products_production`
 
 **Column**	              **Type**                    **Description**
 
-product_id	              TEXT (PK)	                  SKU identifier, e.g. SKU001
+product_id,	              TEXT (PK),                  SKU identifier, e.g. SKU001
 
-product_name	            TEXT	                      Display name
+product_name,	            TEXT,	                      Display name
 
-category	                TEXT	                      One of: Beverages, Snacks, Dairy, Household, Produce
+category,	                TEXT,	                      One of: Beverages, Snacks, Dairy, Household, Produce
 
-unit_cost	                NUMERIC	                    Cost to the business per unit
+unit_cost,	                NUMERIC,	                 Cost to the business per unit
 
-unit_price	              NUMERIC	                    Retail selling price per unit
+unit_price,	              NUMERIC,	                   Retail selling price per unit
 
-lead_time_days	          INTEGER	                    Supplier lead time used for reorder point calc
+lead_time_days,	          INTEGER,	                   Supplier lead time used for reorder point calc
 
-safety_stock_days	        INTEGER	                    Buffer days of stock cover kept on top of lead time
+safety_stock_days,	        INTEGER,	                 Buffer days of stock cover kept on top of lead time
 
 Cleaned Sales table named as `sales_transactions_production`
 **Column**	              **Type**	                  **Description**
