@@ -30,8 +30,7 @@ Loaded the data in my postgressql database, did the cleaning which includes remo
 
 `lead_time_days`,	          INTEGER,	                   Supplier lead time used for reorder point calc
 
-`safety_stock_days`,	        INTEGER,	                 Buffer days of stock cover kept on top of lead time
-
+`safety_stock_days`,	        INTEGER,	                 Buffer days of stock cover incase of mishappenings like stock                                                                delays, or unforeseen spike instock demand, kept on top of lead time
 
 
 ### Sales Table ###
