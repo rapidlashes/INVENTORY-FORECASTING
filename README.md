@@ -15,14 +15,23 @@ Synthetic/simulated data —  Generated realistic daily sales for ~20-50 SKUs ov
 The dataset had 2 tables, **sales table** and **products table**, both messy and up for cleaning.
 Loaded the data in my postgressql database, did the cleaning which includes removing duplicates and filling missing values in the **sales table**  , column `unit_price` with data from the **products table**.
 
+
 Cleaned product table named as `products_production`
+
 **Column**	              **Type**                    **Description**
+
 product_id	              TEXT (PK)	                  SKU identifier, e.g. SKU001
+
 product_name	            TEXT	                      Display name
+
 category	                TEXT	                      One of: Beverages, Snacks, Dairy, Household, Produce
+
 unit_cost	                NUMERIC	                    Cost to the business per unit
+
 unit_price	              NUMERIC	                    Retail selling price per unit
+
 lead_time_days	          INTEGER	                    Supplier lead time used for reorder point calc
+
 safety_stock_days	        INTEGER	                    Buffer days of stock cover kept on top of lead time
 
 Cleaned Sales table named as `sales_transactions_production`
