@@ -35,7 +35,7 @@ Loaded the data in my postgressql database, did the cleaning which includes remo
 
 ### Sales Table ###
 
-`product_id`,	             TEXT (Foreign Key),
+`product_id`,	             TEXT (Foreign Key),             References Primary Key in Products table
 
 `category`,	               TEXT,	                        Denormalised for convenience (matches clean.products.category)
 
@@ -49,7 +49,7 @@ Loaded the data in my postgressql database, did the cleaning which includes remo
 
 `stockout_flag`,	           BOOLEAN,	                    `True` if demand exceeded available stock 
 
-`date` ,                    Date,                         Calender date
+`date` ,                    DATE,                         Calender date
 
 **Change log**
 1. 91 duplicates removed from the `sales_transactions_production` table, after standardising `category` column casing (5        categories had mixed-case variants)
