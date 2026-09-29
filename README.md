@@ -58,4 +58,28 @@ Loaded the data in my postgressql database, did the cleaning which includes remo
 **NOTE:**
 `stockout_flag` marks days where recorded sales undercount true demand — when forecasting, we shall treat `units_sold` on stockout days as a lower bound, not ground truth (this matters most for the forecasting step, not the cleaning step).
 
+## EDA AND FEATURE ENGINEERING ##
+Feature engineering is an important feature prior forecasting models.
+We basically want to enrich our data with deliverables that will be adopted in our later forecast models, for instance;
+
+**Calendar features**
+```python
+mergetable['day_of_week'] = mergetable['date'].dt.day_name()        #monday, tuesday......
+mergetable['is_weekend'] = mergetable['date'].dt.dayofweek>=5       #'True' if Saturdays and Sundays, otherwise 'False' [Monday(0), Tuesday(1), Wed(2)....]
+mergetable['Month'] = mergetable['date'].dt.month                   #'Jan', 'Feb', 'March'
+mergetable['Quarter'] = mergetable['date'].dt.quarter
+mergetable['is_festive'] = mergetable['Month'].isin([11,12])     #Nov and Dec, festive seasons
+mergetable['day_of_year'] = mergetable['date'].dt.dayofyear
+```
+
+Our new table will have extra columns for instance : `is_festive` and `is_weekend` which are boolean values, `Month` which stands for the sale month, `day_of_week` with values like Mondays, Tuesdays....etc
+
+**Time_series_features**(rolling averages)
+```python
+g = mergetable.groupby('product_id')['units_sold'] 
+mergetable['rolling_7d_avg'] = g.transform(lambda x: x.rolling(7, min_periods = 1).mean())
+mergetable['rolling_28d_avg'] = g.transform(lambda x: x.rolling(28, min_periods = 1).mean())
+```
+
+We are essentially transforming raw sales data into historical demand features that a forecasting model can use to learn patterns such as weekly behavior, recent trends, seasonality, and previous demand.
 
