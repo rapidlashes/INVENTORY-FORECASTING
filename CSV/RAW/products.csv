@@ -1,0 +1,26 @@
+product_id,product_name,category,unit_cost,unit_price,lead_time_days,safety_stock_days
+SKU001,Soda 500ml,Beverages,126.94,154.61,5,4
+SKU002,Bottled Water 1L,Beverages,119.13,96.01,6,4
+SKU003,Juice 1L,Beverages,125.64,213.63,6,2
+SKU004,Energy Drink 250ml,Beverages,93.94,143.04,3,4
+SKU005,Iced Tea 500ml,Beverages,113.67,219.87,6,3
+SKU006,Potato Crisps,Snacks,50.45,133.19,9,2
+SKU007,Chocolate Bar,Snacks,104.49,144.75,3,4
+SKU008,Biscuits Pack,Snacks,61.91,195.6,5,4
+SKU009,Peanuts 200g,Snacks,100.05,79.2,4,3
+SKU010,Popcorn Bag,Snacks,33.94,73.14,7,4
+SKU011,Fresh Milk 1L,Dairy,89.62,176.1,5,2
+SKU012,Yoghurt 500g,Dairy,62.67,116.35,8,2
+SKU013,Butter 250g,Dairy,45.35,117.08,4,2
+SKU014,Cheese Slices,Dairy,84.23,112.46,3,4
+SKU015,Milk Powder 400g,Dairy,86.42,97.48,8,4
+SKU016,Dish Soap 750ml,Household,452.14,440.61,9,2
+SKU017,Laundry Powder 1kg,Household,397.12,254.81,8,2
+SKU018,Toilet Paper 4pk,Household,93.31,740.19,8,3
+SKU019,Bleach 1L,Household,407.32,735.55,6,3
+SKU020,Sponges Pack,Household,345.93,254.85,3,2
+SKU021,Bananas 1kg,Produce,52.1,67.11,8,3
+SKU022,Tomatoes 1kg,Produce,57.9,83.47,6,3
+SKU023,Onions 1kg,Produce,45.55,50.4,6,2
+SKU024,Potatoes 2kg,Produce,38.2,41.46,4,3
+SKU025,Sukuma Wiki Bunch,Produce,63.2,43.39,8,2
