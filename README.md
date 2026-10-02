@@ -58,7 +58,7 @@ Loaded the data in my postgressql database, did the cleaning which includes remo
 **NOTE:**
 `stockout_flag` marks days where recorded sales undercount true demand — when forecasting, we shall treat `units_sold` on stockout days as a lower bound, not ground truth (this matters most for the forecasting step, not the cleaning step).
 
-## EDA AND FEATURE ENGINEERING ##
+## FEATURE ENGINEERING ##
 Feature engineering is an important feature prior forecasting models.
 We basically want to enrich our data with deliverables that will be adopted in our later forecast models, for instance;
 
@@ -74,11 +74,17 @@ mergetable['day_of_year'] = mergetable['date'].dt.dayofyear
 
 Our new table will have extra columns for instance : `is_festive` and `is_weekend` which are boolean values, `Month` which stands for the sale month, `day_of_week` with values like Mondays, Tuesdays....etc
 
-**Time_series_features**(rolling averages)
+**Time_series_features**
+(rolling averages)
 ```python
 g = mergetable.groupby('product_id')['units_sold'] 
 mergetable['rolling_7d_avg'] = g.transform(lambda x: x.rolling(7, min_periods = 1).mean())
 mergetable['rolling_28d_avg'] = g.transform(lambda x: x.rolling(28, min_periods = 1).mean())
+```
+(lagging daily sales)
+```python
+mergetable['previous_day_sale'] = g.shift(1)
+mergetable['previous_week_sale'] = g.shift(7)
 ```
 
 We are essentially transforming raw sales data into historical demand features that a forecasting model can use to learn patterns such as weekly behavior, recent trends, seasonality, and previous demand.
