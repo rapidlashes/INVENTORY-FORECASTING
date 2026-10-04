@@ -101,4 +101,4 @@ Total Revenue generated: `105,936,670` KSH
 
 The Promotional lift is `53.2%` which basically means our average sales/units sold have an increase of 53.2% overally on Promotion days compared to Non promotion days.
 
-Snacks is topping the list of categories with a stockout rate of `3.2%`. This is to say that the days that true demand for snacks exceed available stock amount to 3.2% of the total days in the dataset.
+Snacks is topping the list of categories with a stockout rate of `3.2%`. This is to say, the days that true demand for snacks exceed available stock, amount to 3.2% of the total days in the dataset.
