@@ -89,3 +89,16 @@ mergetable['previous_week_sale'] = g.shift(7)
 
 We are essentially transforming raw sales data into historical demand features that a forecasting model can use to learn patterns such as weekly behavior, recent trends, seasonality, and previous demand.
 
+## EDA SUMMARY ##
+
+Average units sold on Weekdays : `42`
+
+Average units sold on weekends : `50`
+
+Date Range of our data : from `1-1-2024` to `31-12-2025` which  is 2 years.
+
+Total Revenue generated: `105,936,670` KSH
+
+The Promotional lift is `53.2%` which basically means our average sales/units sold have an increase of 53.2% overally on Promotion days compared to Non promotion days.
+
+Snacks is topping the list of categories with a stockout rate of `3.2%`. This is to say that the days that true demand for snacks exceed available stock amount to 3.2% of the total days in the dataset.
