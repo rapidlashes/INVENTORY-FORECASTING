@@ -75,6 +75,7 @@ mergetable['day_of_year'] = mergetable['date'].dt.dayofyear
 Our new table will have extra columns for instance : `is_festive` and `is_weekend` which are boolean values, `Month` which stands for the sale month, `day_of_week` with values like Mondays, Tuesdays....etc
 
 **Time_series_features**
+
 (rolling averages)
 ```python
 g = mergetable.groupby('product_id')['units_sold'] 
