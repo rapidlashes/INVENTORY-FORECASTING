@@ -1,0 +1,26 @@
+product_id,product_name,product_category,average_daily_forecast,lead_time_days,safety_stock_days,leadtime_demand,safetystock_units,reorder_point,forecast_14_day_total
+SKU001,Soda 500ml,Beverages,49.1,5,4,245.5,196.4,441.9,687.4
+SKU002,Bottled Water 1L,Beverages,50.4,6,4,302.4,201.6,504.0,705.6
+SKU003,Juice 1L,Beverages,47.4,6,2,284.4,94.8,379.2,663.6
+SKU004,Energy Drink 250ml,Beverages,36.7,3,4,110.1,146.8,256.9,513.8
+SKU005,Iced Tea 500ml,Beverages,66.3,6,3,397.8,198.9,596.7,928.2
+SKU006,Potato Crisps,Snacks,37.3,9,2,335.7,74.6,410.3,522.2
+SKU007,Chocolate Bar,Snacks,53.4,3,4,160.2,213.6,373.8,747.6
+SKU008,Biscuits Pack,Snacks,63.7,5,4,318.5,254.8,573.3,891.8
+SKU009,Peanuts 200g,Snacks,74.3,4,3,297.2,222.9,520.1,1040.2
+SKU010,Popcorn Bag,Snacks,37.4,7,4,261.8,149.6,411.4,523.6
+SKU011,Fresh Milk 1L,Dairy,61.1,5,2,305.5,122.2,427.7,855.4
+SKU012,Yoghurt 500g,Dairy,37.4,8,2,299.2,74.8,374.0,523.6
+SKU013,Butter 250g,Dairy,67.6,4,2,270.4,135.2,405.6,946.4
+SKU014,Cheese Slices,Dairy,73.0,3,4,219.0,292.0,511.0,1022.0
+SKU015,Milk Powder 400g,Dairy,107.1,8,4,856.8,428.4,1285.2,1499.4
+SKU016,Dish Soap 750ml,Household,15.7,9,2,141.3,31.4,172.7,219.8
+SKU017,Laundry Powder 1kg,Household,30.0,8,2,240.0,60.0,300.0,420.0
+SKU018,Toilet Paper 4pk,Household,17.7,8,3,141.6,53.1,194.7,247.8
+SKU019,Bleach 1L,Household,9.9,6,3,59.4,29.7,89.1,138.6
+SKU020,Sponges Pack,Household,8.9,3,2,26.7,17.8,44.5,124.6
+SKU021,Bananas 1kg,Produce,55.1,8,3,440.8,165.3,606.1,771.4
+SKU022,Tomatoes 1kg,Produce,86.9,6,3,521.4,260.7,782.1,1216.6
+SKU023,Onions 1kg,Produce,46.6,6,2,279.6,93.2,372.8,652.4
+SKU024,Potatoes 2kg,Produce,108.9,4,3,435.6,326.7,762.3,1524.6
+SKU025,Sukuma Wiki Bunch,Produce,73.0,8,2,584.0,146.0,730.0,1022.0
