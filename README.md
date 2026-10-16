@@ -101,3 +101,5 @@ Total Revenue generated: `105,936,670` KSH
 Promotions lift the average units sold by `53.2%`.
 
 Snacks is topping the list of categories with a stockout rate of `3.2%`. This is to say, the days that true demand for snacks exceed available stock, amount to 3.2% of the total days in the dataset.
+
+After evaluating our models and decided to use the holt winter to forecast values, we went ahead and established a reorder logic ofr that specific sku. Note : our data combines 25 SKUs so using the holt winter method will not be ideal, we will use the moving average to forecast those values per each sku.Moving average is simplr since forecast values are constant across all the 14 days forecast.Now we are waitinf for the reorder logic of those 25skus and we are then done.
