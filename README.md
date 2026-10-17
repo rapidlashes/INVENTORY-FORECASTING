@@ -106,9 +106,7 @@ After evaluating our models and decided to use the holt winter to forecast value
 
 ## FORECAST MODELS
 ### MODEL EVALUATION
-We first tested our data with baseline forecasting models like Seasonal Naive, and Simple Moving Average then we moved on to Exponential Smoothing to uncover trends and seasonal ppatterns lying underneath our data. The method uses all past data points infinitely, applying an exponential decay so newer data has a much higher impact than older data.
-
-We devided our data into separate SKUS and  used one SKU `SKU001` to test our models.We again separated our SKU data into training data and testing data.We put the training data in our models then compared the forecasted values with the values from our testing data by finding  **mae**(Mean Absolute Error) and **rmse**(Root Mean Squared Error). 
+We first tested our data with baseline forecasting models like Seasonal Naive, and Simple Moving Average then we moved on to Exponential Smoothing to uncover trends and seasonal ppatterns lying underneath our data. The method uses all past data points infinitely, applying an exponential decay so newer data has a much higher impact than older data. 
 
 The model with the least error is the most accurate:
 
@@ -117,3 +115,10 @@ The model with the least error is the most accurate:
 | Simple Moving Average | 7.2  | 9.8   |
 | Holt Winter           | 6.3  | 8.0   |
 | Seasonal Naive        | 9.97 | 12.11 |
+
+**NOTE** The above data was analysed from a 7 days window, meaning:
+1. Seasonal Naive uses the last 7 days of our training data to forecast fututre values
+2. Simple Moving Average finds the average of the last 7 days of our training data and uses that average to forecast future values.
+3. Holt winter(Exponential Smoothing) uses last 7 days of our training data to uncover trends and seasonality then uses the exact logic to forecast future values.
+
+Seeing that our data comprises of different SKUS combined in one table, we will use The moving average which assumes the forecast values is constant across all the forecasted days, that way we can compress each SKU result into one row and end up with 25 rows in our forecast table.
