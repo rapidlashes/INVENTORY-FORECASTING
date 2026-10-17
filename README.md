@@ -113,6 +113,7 @@ We devided our data into separate SKUS and  used one SKU `SKU001` to test our mo
 The model with the least error is the most accurate:
 
 | Models                | Mae  | Rmse  |
+|-----------------------|------|-------|
 | Simple Moving Average | 7.2  | 9.8   |
 | Holt Winter           | 6.3  | 8.0   |
 | Seasonal Naive        | 9.97 | 12.11 |
