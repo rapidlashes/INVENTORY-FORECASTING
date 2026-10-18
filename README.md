@@ -37,19 +37,12 @@ Loaded the data in my postgressql database, did the cleaning which includes remo
 | **Column_name**         |    **dtype**          |   **description**                                                      |
 |-------------------------|-----------------------|------------------------------------------------------------------------|
 |  `product_id`           |	   TEXT (Foreign Key) |  References Primary Key in Products table                              |
-
 |  `category`             |	   TEXT               |	 Denormalised for convenience (matches clean.products.category)        |
-
 |  `units_sold`           |	   INTEGER            |	 Actual units sold that day (capped by available stock)                |
-
 |  `unit_price`           |	   NUMERIC            |	 Price on that day specifically(price varies on promotion days)        |
-
 |  `promotion_flag`       |	      BOOLEAN          |  **True** if the SKU was on promotion that day, **False** if otherwise |
-
 |  `stock_level_end_of_day`  |	  NUMERIC         |	 Stock remaining after that day's sales                                |
-
 |`stockout_flag`          |	  BOOLEAN             |	 **True** if demand exceeded available stock                           | 
-
 |`date`                   |    DATE                |  Calender date                                                        |
 
 **Change log**
