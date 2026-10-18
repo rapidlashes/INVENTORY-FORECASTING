@@ -12,8 +12,8 @@ Synthetic/simulated data —  Generated realistic daily sales for ~20-50 SKUs ov
 
 
 ## Cleaning and Transformation ##
-The dataset had 2 tables, ***sales table*** and ***products table***, both messy and up for cleaning.
-Loaded the data in my postgressql database, did the cleaning which includes removing duplicates and filling missing values in the ***sales table***  , column `unit_price` with data from the ***products table***.
+The dataset had 2 tables, **sales table** and **products table**, both messy and up for cleaning.
+Loaded the data in my postgressql database, did the cleaning which includes removing duplicates and filling missing values in the **sales table**  , column `unit_price` with data from the **products table**.
 
 
 ### Products table
@@ -124,9 +124,6 @@ Seeing that our data comprises of different SKUS combined in one table, we will 
 
 ### REORDER LOGIC
 Our forecasted table has 25 SKUs each having a forecasted value of units_sold.We need to esatablish a reorder point based on  leadtime days and safety stock days. These two deliverables are from the product master table so we have to merge the two tables.We will also merge the sales table so as to get the current stock value.
-
-`leadtime_days` : days it takes for the supplier to deliver the products after a reorder
-`safety_stock_days`: cover contingencies like, unexpected supplier delays, unanticipated shoot in sales etc.
 
 ### Data enrichment
 To arrive to our desired objective of generating a demand forecast, we formed new columns:
