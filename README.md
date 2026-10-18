@@ -34,22 +34,23 @@ Loaded the data in my postgressql database, did the cleaning which includes remo
 
 
 ### Sales Table ###
-------------|--------------------------------|------------------------------------------------------------------------------|
-`product_id`|	             TEXT (Foreign Key)|             References Primary Key in Products table|
 
-`category`|	               TEXT|	                        Denormalised for convenience (matches clean.products.category)|
+|------------------------|------------------------|------------------------------------------------------------------------|
+|`product_id`            |	   TEXT (Foreign Key) |  References Primary Key in Products table                              |
 
-`units_sold`|	             INTEGER|	                    Actual units sold that day (capped by available stock)|
+|`category`              |	   TEXT               |	 Denormalised for convenience (matches clean.products.category)        |
 
-`unit_price`|	             NUMERIC|	                    Price on that day specifically(price varies on promotion days)|
+|`units_sold`            |	   INTEGER            |	 Actual units sold that day (capped by available stock)                |
 
-`promotion_flag`|	         BOOLEAN|                    **True** if the SKU was on promotion that day, **False** if otherwise|
+|`unit_price`            |	   NUMERIC            |	 Price on that day specifically(price varies on promotion days)        |
 
-`stock_level_end_of_day`|	  NUMERIC|	                    Stock remaining after that day's sales|
+|`promotion_flag`        |	   BOOLEAN            |  **True** if the SKU was on promotion that day, **False** if otherwise |
 
-`stockout_flag`|	           BOOLEAN|	                    **True** if demand exceeded available stock| 
+|`stock_level_end_of_day`|	  NUMERIC             |	 Stock remaining after that day's sales                                |
 
-`date` |                    DATE|                         Calender date|
+|`stockout_flag`         |	  BOOLEAN             |	 **True** if demand exceeded available stock                           | 
+
+|`date`                  |    DATE                |  Calender date                                                         |
 
 **Change log**
 1. 91 duplicates removed from the ***sales_transactions_production*** table, after standardising `category` column casing (5        categories had mixed-case variants)
