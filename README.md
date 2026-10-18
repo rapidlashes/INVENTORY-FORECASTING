@@ -17,20 +17,15 @@ Loaded the data in my postgressql database, did the cleaning which includes remo
 
 
 ### Products table
-
-`product_id`,	             TEXT (Primary Key),         SKU identifier, e.g. SKU001
-
-`product_name`,	            TEXT,	                      Display name
-
-`category`,	                TEXT,	                      One of: Beverages, Snacks, Dairy, Household, Produce
-
-`unit_cost`,	               NUMERIC,	                  Cost to the business per unit
-
-`unit_price`,	              NUMERIC,	                  Retail selling price per unit
-
-`lead_time_days`,	          INTEGER,	                   Supplier lead time used for reorder point calc
-
-`safety_stock_days`,	        INTEGER,	                 Buffer days of stock cover incase of mishappenings like stock                                                                delays, or unforeseen spike instock demand, kept on top of lead time
+| **column_name**    |    **dtype**              |      **description**                                        |
+|--------------------|---------------------------|-------------------------------------------------------------|
+|`product_id`        |  TEXT (Primary Key)       |      SKU identifier, e.g. SKU001                            |
+|`product_name`      |	  TEXT                   |      Displays name                                          |
+|`category`          |    TEXT                   |      One of: Beverages, Snacks, Dairy, Household, Produce   |
+|`unit_cost`         |    NUMERIC                |	    Cost to the business per unit                          |
+|`unit_price`        |    NUMERIC                |      Retail selling price per unit                          |
+|`lead_time_days`    |	  INTEGER                |      Supplier lead time used for reorder point calc         |
+|`safety_stock_days` |	  INTEGER                |	    Buffer days of stock cover incase of mishappenings like stock                                                                delays, or unforeseen spike instock demand, kept on top of lead time|
 
 
 ### Sales Table ###
