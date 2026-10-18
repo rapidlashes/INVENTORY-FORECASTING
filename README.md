@@ -34,7 +34,7 @@ Loaded the data in my postgressql database, did the cleaning which includes remo
 
 
 ### Sales Table ###
-
+| **Column_name**        |    **dtype**           |   **description**                                                      |
 |------------------------|------------------------|------------------------------------------------------------------------|
 |`product_id`            |	   TEXT (Foreign Key) |  References Primary Key in Products table                              |
 
