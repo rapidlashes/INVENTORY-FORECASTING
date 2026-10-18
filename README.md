@@ -5,15 +5,17 @@ This is the flow :
 **Sales/stock data → EDA → simple forecasting model (e.g. moving average or basic regression) → dashboard of reorder recommendations.**
 
 ## Problem Statement ##
-"Predict future product demand and generate reorder recommendations for a retail/supermarket business, using historical sales and stock data." This framing shows both technical depth and business understanding — connecting the model output to an actual decision (when to reorder, how much).
+**Predict future product demand and generate reorder recommendations for a retail/supermarket business, using historical sales and stock data.**
+
+This framing shows both technical depth and business understanding — connecting the model output to an actual decision (when to reorder, how much).
 
 ## Data Source ##
-Synthetic/simulated data —  Generated realistic daily sales for ~20-50 SKUs over 1-2 years with seasonality, trends, and randomness using Python.
+Synthetic/simulated data —  Generated realistic daily sales for ~20-50 SKUs over 1-2 years with seasonality, trends, and randomness.
 
 
 ## Cleaning and Transformation ##
 The dataset had 2 tables, **sales table** and **products table**, both messy and up for cleaning.
-Loaded the data in my postgressql database, did the cleaning which includes removing duplicates and filling missing values in the **sales table**  , column `unit_price` with data from the **products table**.
+Loaded the data in my postgressql database, did the cleaning which includes removing duplicates and filling missing values in the ***sales_transactions*** table  , column `unit_price` with data from the ***products*** table.
 
 
 ### Products table
@@ -41,8 +43,8 @@ Loaded the data in my postgressql database, did the cleaning which includes remo
 |`date`                   |    DATE                |  Calender date                                                        |
 
 **Change log**
-1. 91 duplicates removed from the ***sales_transactions_production*** table, after standardising `category` column casing (5        categories had mixed-case variants)
-2. back-filled 176 missing `unit_price` values from products table ***products_production***
+1. 91 duplicates removed from the ***sales_transactions_cleaned*** table, after standardising `category` column casing (5        categories had mixed-case variants)
+2. back-filled 176 missing `unit_price` values from ***products_cleaned*** table.
 
 **NOTE:**
 `stockout_flag` marks days where recorded sales undercount true demand — when forecasting, we shall treat `units_sold` on stockout days as a lower bound, not ground truth (this matters most for the forecasting step, not the cleaning step).
@@ -81,7 +83,7 @@ We are essentially transforming raw sales data into historical demand features t
 
 ## EDA SUMMARY ##
 
-Average units sold on Weekdays : `42`, Average units sold on weekends : `50`. So asically weekend sales run `20%` above weekday sales.
+Average units sold on Weekdays : `42`, Average units sold on weekends : `50`. So basically weekend sales run `20%` above weekday sales.
 
 Date Range of our data : from `1-1-2024` to `31-12-2025` which  is 2 years.
 
@@ -89,23 +91,23 @@ Total Revenue generated: `105,936,670` KSH
 
 Promotions lift the average units sold by `53.2%`.
 
-Snacks is topping the list of categories with a stockout rate of `3.2%`. This is to say, the days that true demand for snacks exceed available stock, amount to 3.2% of the total days in the dataset.
+Snacks is topping the list of `categories` with a stockout rate of `3.2%`. This is to say, the days that true demand for snacks exceed available stock, amount to 3.2% of the total days in the dataset.
 
 
 ## FORECAST MODELS
 ### MODEL EVALUATION
 We first tested our data with baseline forecasting models like Seasonal Naive, and Simple Moving Average then we moved on to Exponential Smoothing to uncover trends and seasonal patterns lying underneath our data. The latter uses all past data points infinitely, applying an exponential decay so newer data has a much higher impact than older data. 
 
-The model with the least error is the most accurate:
+**LOGIC:** The model with the least error is the most accurate:
 
 | Models                | Mae  | Rmse  |
 |-----------------------|------|-------|
 | Simple Moving Average | 7.2  | 9.8   |
-| Holt Winter           | 6.3  | 8.0   |
+| Holt Winter(ES)       | 6.3  | 8.0   |
 | Seasonal Naive        | 9.97 | 12.11 |
 
 **NOTE** The above data was analysed from a 7 days window, meaning:
-1. Seasonal Naive uses the last 7 days of our training data to forecast fututre values
+1. Seasonal Naive uses the last 7 days of our training data to forecast fututre values.
 2. Simple Moving Average finds the average of the last 7 days of our training data and uses that average to forecast future values.
 3. Holt winter(Exponential Smoothing) uses last 7 days of our training data to uncover trends and seasonality then uses the exact logic to forecast future values.
 
