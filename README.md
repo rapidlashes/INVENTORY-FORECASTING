@@ -12,11 +12,11 @@ Synthetic/simulated data —  Generated realistic daily sales for ~20-50 SKUs ov
 
 
 ## Cleaning and Transformation ##
-The dataset had 2 tables, **sales table** and **products table**, both messy and up for cleaning.
-Loaded the data in my postgressql database, did the cleaning which includes removing duplicates and filling missing values in the **sales table**  , column `unit_price` with data from the **products table**.
+The dataset had 2 tables, ***sales table*** and ***products table***, both messy and up for cleaning.
+Loaded the data in my postgressql database, did the cleaning which includes removing duplicates and filling missing values in the ***sales table***  , column `unit_price` with data from the ***products table***.
 
 
-### Products table ##
+### Products table
 
 `product_id`,	             TEXT (Primary Key),         SKU identifier, e.g. SKU001
 
@@ -52,8 +52,8 @@ Loaded the data in my postgressql database, did the cleaning which includes remo
 `date` ,                    DATE,                         Calender date
 
 **Change log**
-1. 91 duplicates removed from the `sales_transactions_production` table, after standardising `category` column casing (5        categories had mixed-case variants)
-2. back-filled 176 missing `unit_price` values from products table `products_production`
+1. 91 duplicates removed from the ***sales_transactions_production*** table, after standardising `category` column casing (5        categories had mixed-case variants)
+2. back-filled 176 missing `unit_price` values from products table ***products_production***
 
 **NOTE:**
 `stockout_flag` marks days where recorded sales undercount true demand — when forecasting, we shall treat `units_sold` on stockout days as a lower bound, not ground truth (this matters most for the forecasting step, not the cleaning step).
@@ -102,11 +102,10 @@ Promotions lift the average units sold by `53.2%`.
 
 Snacks is topping the list of categories with a stockout rate of `3.2%`. This is to say, the days that true demand for snacks exceed available stock, amount to 3.2% of the total days in the dataset.
 
-After evaluating our models and decided to use the holt winter to forecast values, we went ahead and established a reorder logic ofr that specific sku. Note : our data combines 25 SKUs so using the holt winter method will not be ideal, we will use the moving average to forecast those values per each sku.Moving average is simplr since forecast values are constant across all the 14 days forecast.Now we are waitinf for the reorder logic of those 25skus and we are then done.
 
 ## FORECAST MODELS
 ### MODEL EVALUATION
-We first tested our data with baseline forecasting models like Seasonal Naive, and Simple Moving Average then we moved on to Exponential Smoothing to uncover trends and seasonal ppatterns lying underneath our data. The method uses all past data points infinitely, applying an exponential decay so newer data has a much higher impact than older data. 
+We first tested our data with baseline forecasting models like Seasonal Naive, and Simple Moving Average then we moved on to Exponential Smoothing to uncover trends and seasonal patterns lying underneath our data. The latter uses all past data points infinitely, applying an exponential decay so newer data has a much higher impact than older data. 
 
 The model with the least error is the most accurate:
 
@@ -122,3 +121,35 @@ The model with the least error is the most accurate:
 3. Holt winter(Exponential Smoothing) uses last 7 days of our training data to uncover trends and seasonality then uses the exact logic to forecast future values.
 
 Seeing that our data comprises of different SKUS combined in one table, we will use The moving average which assumes the forecast values is constant across all the forecasted days, that way we can compress each SKU result into one row and end up with 25 rows in our forecast table.
+
+### REORDER LOGIC
+Our forecasted table has 25 SKUs each having a forecasted value of units_sold.We need to esatablish a reorder point based on  leadtime days and safety stock days. These two deliverables are from the product master table so we have to merge the two tables.We will also merge the sales table so as to get the current stock value.
+
+`leadtime_days` : days it takes for the supplier to deliver the products after a reorder
+`safety_stock_days`: cover contingencies like, unexpected supplier delays, unanticipated shoot in sales etc.
+
+### Data enrichment
+To arrive to our desired objective of generating a demand forecast, we formed new columns:
+```python
+1. leadtime_demand = lead_time_days * average_daily_forecast                           #forecasted value
+2. safetystock_units = safety_stock_days * average_daily_forecast
+3. reorder_point = safetystock_units + leadtime_demand
+4. forecasted_14_day_total = 14 * average_daily_forecast                               #14 is total forecast days
+5. current_stock = stock_level_end_of_day                                              #from sales table
+6. days_of_cover = current_stock / average_daily_forecast
+7. status                                                                              #(a conditional column)
+8. order_upto_level = leadtime_demand + safetystock_units + forecasted_14_day_total
+9. gap = order_upto_level - current_stock
+10. suggested_order_quantity                                                           #(a conditional column )
+```
+
+`days_of_cover` basically gives us the number of days we have to sustain our customers before we deplete our stock.
+`order_upto_level` is how we wish our stock to be, enough to cover the next 14 days, considering also leadtime and safetystock units. The `gap` column simply shows us the gap we have between where we are now, and where we want to be quantity wise.
+The `status` column guides us on how we should reorder our stock, and what quantitites are we reordering. It is derived from 4 conditions:
+1. `Critical` - days_of_cover < leadtime_demand (this means even if you reorder immediately, your stock will be depleted                     before the supplier delivers.
+2. `reorder_now` - current_stock <= reorder_point ( if you reorder now , youll still have enough stock to get you by before                     your next restock arrives, but this doesnt necessarily cover for the safety stock units incase there is                      an unexpected spike in demand). 
+3. `watch_out` - `current_stock` <= (`reorder_point` * 1.25) - here current stock is within 25% above the reorder point, so                   there's no need to reorder immediately but watch out for your stock so that it doesnt run out.
+4. `OK` - This status means the current stock is way above 25% of your reorder_point, there's really no need to reorder,               unless one wants to themselves.
+
+The whole point of the reorder logic is to meet our clients demands while otimising on the resources we have at hand (C apital used for the restock). We dont necessarily want to deplete our Inventory Output in purchasing deadstocks espeially the fact that some products are perishable. This now takes us to the next step which is the `suggested order quantity` where we only reorder stocks for SKU's whose status are `reorder_now` and `Critical`.
+
